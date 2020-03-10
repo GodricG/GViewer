@@ -2,11 +2,11 @@
 
 radar::radar(QObject *parant):QThread(parant)
 {
-    qRegisterMetaType<CloudT::Ptr>("CloudT::Ptr");
+    qRegisterMetaType<CloudT::Ptr>("CloudT::Ptr"); //Register custom type for connecting signal/slot
     isCancel = false;
     cloud.reset(new CloudT);
-    serial_connect.setBaud(opt_com_baudrate);
-    serial_connect.setPort(opt_com_path.c_str());
+    serial_connect.setBaud(opt_com_baudrate); //setup baud rate
+    serial_connect.setPort(opt_com_path.c_str()); //setup usb port
     ZdepthInner = 0;
     Zdepth = 1000;
     count = 0;
