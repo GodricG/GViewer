@@ -50,7 +50,7 @@ protected:
     void run() override;
 private:
     boost::atomic<bool> isCancel;
-    CloudT::Ptr cloud;
+    CloudT::Ptr cloud; //Store PointCloud obtained from radar
 
     int Zdepth;
     int ZdepthInner;
@@ -58,10 +58,10 @@ private:
     int opt_com_baudrate = 230400;
     string opt_com_path = "/dev/ttyUSB0";
 
-    CSerialConnection serial_connect;
-    C3iroboticsLidar robotics_lidar;
-    TLidarScan lidar_scan;
-    TLidarGrabResult result;
+    CSerialConnection serial_connect; //Connection instance
+    C3iroboticsLidar robotics_lidar; //radar instance
+    TLidarScan lidar_scan; //struct TLidarScan used to store acquired data, which contain angle, distance and strength information
+    TLidarGrabResult result; //store acquisition result
 };
 
 #endif // RADAR_H

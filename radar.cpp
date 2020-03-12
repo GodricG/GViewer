@@ -4,7 +4,7 @@ radar::radar(QObject *parant):QThread(parant)
 {
     qRegisterMetaType<CloudT::Ptr>("CloudT::Ptr"); //Register custom type for connecting signal/slot
     isCancel = false;
-    cloud.reset(new CloudT);
+    cloud.reset(new CloudT); //initialize cloud
     serial_connect.setBaud(opt_com_baudrate); //setup baud rate
     serial_connect.setPort(opt_com_path.c_str()); //setup usb port
     ZdepthInner = 0;
@@ -37,7 +37,7 @@ void radar::run()
     while(!isCancel)
     {
         result = robotics_lidar.getScanData();
-        if(isCancel)
+        if(isCancel) //stops when recieve the "stop" signal, which is included in radar::cancelRun().
         {
             serial_connect.closeSerial();
             cloud->width = cloud->points.size();
@@ -69,10 +69,10 @@ void radar::run()
                     one_lidar_data.angle = lidar_scan.angle[i];
                     one_lidar_data.distance = lidar_scan.distance[i];
                     send_lidar_scan_data[i] = one_lidar_data;
-                    pcl::PointXYZ temp;
+                    pcl::PointXYZ temp; //used as temporary variable to store each point information, which includes axis x, y and z in this case
                     temp.x = send_lidar_scan_data[i].distance * sin(send_lidar_scan_data[i].angle*M_PI/180);
                     temp.y = send_lidar_scan_data[i].distance * cos(send_lidar_scan_data[i].angle*M_PI/180);
-                    temp.z = ZdepthInner / 2000000.0;
+                    temp.z = ZdepthInner / 2000000.0; //It could be a constant number instead of "ZdepthInner / 2000000.0".This is a little tricky, since the radar transmit points data in 16 parts equally, it is hard to acquire data of axis z in order.
                     cloud->points.push_back(temp);
                 }
                 std::cout << "Round: " << ZdepthInner <<", " << ZdepthInner % 1000<< std::endl;
@@ -95,7 +95,7 @@ void radar::run()
 
         ZdepthInner++;
         count = ZdepthInner % 1000;
-        if(count > Zdepth)
+        if(count > Zdepth) //controled by slider "ZSlider" in gviewer.ui
         {
 
             cloud->width = cloud->points.size();
