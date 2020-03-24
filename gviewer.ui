@@ -79,6 +79,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QPushButton" name="MeshBtn">
+        <property name="text">
+         <string>Mesh</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </item>
     <item>

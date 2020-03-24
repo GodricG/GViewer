@@ -13,12 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
+        gmesh.cpp \
         gviewer.cpp \
         radar.cpp \
         src/src/*
         
 
 HEADERS  += gviewer.h src/include/* \
+    gmesh.h \
     radar.h
 
 

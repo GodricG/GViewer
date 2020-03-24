@@ -103,3 +103,9 @@ void GViewer::on_StopBtn_clicked()
 {
     cancelRequest();
 }
+
+void GViewer::on_MeshBtn_clicked()
+{
+    gmesh mesh("Autosaved.pcd");
+    mesh.mesh();
+}

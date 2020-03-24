@@ -35,6 +35,9 @@
 //radar
 #include "radar.h"
 
+//mesh
+#include "gmesh.h"
+
 typedef pcl::PointCloud<pcl::PointXYZ> CloudT;
 typedef pcl::visualization::PCLVisualizer ViewerT;
 using namespace std;
@@ -65,6 +68,8 @@ private slots:
     void on_StopBtn_clicked();
     void initParas();
     void updateStatus(QString str, int roundCount);
+
+    void on_MeshBtn_clicked();
 
 private:
     Ui::GViewer *ui;
